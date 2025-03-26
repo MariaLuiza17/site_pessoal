@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotilove</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='coracao.png') }}" type="image/png">
+</head>
+<body>
+    <div class="music-player">
+        <!-- Capa da música -->
+        <div class="album-cover">
+            <img id="coverImage" src="{{ url_for('static', filename='foto1.jpeg') }}" alt="Capa da Música" class="cover-image">
+        </div>
+
+        <!-- Navegação das letras -->
+        <div class="lyrics-container">
+            <div class="lyrics-page active">
+                <div class="lyrics">
+                    <p class="line active">Eu só queria dizer</p>
+                    <p class="line">Que meu amor por você</p>
+                    <p class="line">É muito mais do que a soma das gotas do mar</p>
+                </div>
+            </div>
+            <div class="lyrics-page">
+                <div class="lyrics">
+                    <p class="line active">Pois sem você</p>
+                    <p class="line">Minha vida é vazia</p>
+                    <p class="line">Sem graça</p>
+                    <p class="line">Como um dia sem sol</p>
+                </div>
+            </div>
+            <div class="lyrics-page">
+                <div class="lyrics">
+                    <p class="line active">Tudo eu gosto em você</p>
+                    <p class="line">O seu jeito me faz ver</p>
+                    <p class="line">Te amar é simplesmente demais</p>
+                    <p class="line">Demais</p>
+                </div>
+            </div>
+            <div class="lyrics-page">
+                <div class="lyrics">
+                    <p class="line active">Nada nesse mundo vai fazer mudar</p>
+                    <p class="line">O que sinto por você não vai acabar</p>
+                    <p class="line">Haja o que houver, venha o que vier</p>
+                    <p class="line">Meu amor por você é imortal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Botões de navegação -->
+    <div class="nav-buttons">
+        <button id="prev" class="nav-btn">←</button>
+        <button id="next" class="nav-btn">→</button>
+    </div>
+    <div class="song-info">
+        <a id="coverLinkSmall" href="#" target="_blank">
+            <img id="coverImageSmall" src="/static/capa1.jpg" alt="Capa do Álbum" class="small-cover">
+        </a>
+        <span id="songTittle" class="song-title">Complicidade</span>
+    </div>
+</body>
+</html>

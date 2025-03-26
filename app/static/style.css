@@ -1,0 +1,148 @@
+body {
+    background-color: #070040; /* Fundo escuro */
+    color: #ffffff; /* Texto branco */
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background-image: url('wallpaper.png'); /* Caminho para a imagem */
+    background-size: cover; /* Ajusta a imagem para cobrir todo o espaço */
+    background-position: center; /* Centraliza a imagem */
+    height: 100vh; /* Faz a altura da seção igual à altura da janela do navegador */
+    background-repeat: no-repeat; /* A imagem vai se repetir */
+    overflow: hidden; /* Impede a barra de rolagem */
+    background-attachment: fixed; /* Impede a rolagem */
+}
+
+.music-player {
+    text-align: center;
+    position: relative;
+}
+
+.album-cover {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.cover-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.lyrics-container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    height: 300px; /* Tamanho fixo para efeito de rolagem */
+    overflow: hidden;
+    position: relative;
+}
+
+.lyrics-page {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.lyrics-page.active {
+    display: block;
+    opacity: 1;
+}
+
+.lyrics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.line {
+    font-size: 20px;
+    font-weight: 400;
+    opacity: 0.6;
+    transition: opacity 0.5s ease-in-out;
+    margin: 10px 0;
+}
+
+.active {
+    font-weight: bold;
+    opacity: 1;
+}
+
+/* Botões de navegação */
+.nav-buttons {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 50 50px; /* Adiciona um pouco de espaço nas laterais */
+    transform: translateY(-50%);
+}
+
+.nav-btn {
+    background-color: transparent;
+    color: white;
+    font-size: 30px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: #376899;
+}
+
+.song-info {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    background-color: #738bbb;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.small-cover {
+    width: 50px; /* Tamanho pequeno */
+    height: 50px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.song-title {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Para telas menores que 768px (dispositivos móveis) */
+@media (max-width: 768px) {
+    .nav-buttons {
+        position: fixed;
+        bottom: 10px; /* Coloca as setas 10px acima da parte inferior */
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: min-content;
+        margin-top: 70%;
+    }
+
+    /* Ajusta as setas para estarem lado a lado */
+    .nav-buttons button {
+        margin: 0 10px;
+    }
+}
