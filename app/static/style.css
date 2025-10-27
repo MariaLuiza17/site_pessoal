@@ -8,13 +8,17 @@ body {
     height: 100vh;
     margin: 0;
     overflow: hidden;
-    background-image: url('wallpaper.png'); /* Caminho para a imagem */
+    background-image: url('frente.jpg'); /* Caminho para a imagem */
     background-size: cover; /* Ajusta a imagem para cobrir todo o espaço */
     background-position: center; /* Centraliza a imagem */
     height: 100vh; /* Faz a altura da seção igual à altura da janela do navegador */
     background-repeat: no-repeat; /* A imagem vai se repetir */
     overflow: hidden; /* Impede a barra de rolagem */
     background-attachment: fixed; /* Impede a rolagem */
+}
+
+#audioPlayer {
+    display: none;
 }
 
 .music-player {

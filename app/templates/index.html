@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spotilove</title>
+    <title>Bem</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <link rel="icon" href="{{ url_for('static', filename='coracao.png') }}" type="image/png">
 </head>
 <body>
     <div class="music-player">
+        <audio id="audioPlayer" controls autoplay></audio>
         <!-- Capa da música -->
         <div class="album-cover">
             <img id="coverImage" src="{{ url_for('static', filename='foto1.jpeg') }}" alt="Capa da Música" class="cover-image">
@@ -19,33 +20,34 @@
         <div class="lyrics-container">
             <div class="lyrics-page active">
                 <div class="lyrics">
-                    <p class="line active">Eu só queria dizer</p>
-                    <p class="line">Que meu amor por você</p>
-                    <p class="line">É muito mais do que a soma das gotas do mar</p>
+                    <p class="line active">Você sabe que eu só penso em você</p>
+                    <p class="line">Você diz que vive pensando em mim</p>
+                    <p class="line">Pode ser, se é assim</p>
+                    <p class="line">Você tem que largar a mão do não</p>
                 </div>
             </div>
             <div class="lyrics-page">
                 <div class="lyrics">
-                    <p class="line active">Pois sem você</p>
-                    <p class="line">Minha vida é vazia</p>
-                    <p class="line">Sem graça</p>
-                    <p class="line">Como um dia sem sol</p>
+                    <p class="line active">Eu quis lutar contra o poder do amor</p>
+                    <p class="line">Caí nos pés do vencedor</p>
+                    <p class="line">Para ser o serviçal de um samurai</p>
+                    <p class="line">Mas eu tô tão feliz, dizem que o amor atrai</p>
                 </div>
             </div>
             <div class="lyrics-page">
                 <div class="lyrics">
-                    <p class="line active">Tudo eu gosto em você</p>
-                    <p class="line">O seu jeito me faz ver</p>
-                    <p class="line">Te amar é simplesmente demais</p>
-                    <p class="line">Demais</p>
+                    <p class="line active">Teus sinais me confundem da cabeça aos pés</p>
+                    <p class="line">Mas por dentro, eu te devoro</p>
+                    <p class="line">Teu olhar não me diz exato quem tu és</p>
+                    <p class="line">Mesmo assim, eu te devoro</p>
                 </div>
             </div>
             <div class="lyrics-page">
                 <div class="lyrics">
-                    <p class="line active">Nada nesse mundo vai fazer mudar</p>
-                    <p class="line">O que sinto por você não vai acabar</p>
-                    <p class="line">Haja o que houver, venha o que vier</p>
-                    <p class="line">Meu amor por você é imortal</p>
+                    <p class="line active">Essa desmesura de paixão</p>
+                    <p class="line">É loucura do coração</p>
+                    <p class="line">Minha Foz do Iguaçu, Polo Sul, meu azul</p>
+                    <p class="line">Luz do sentimento nu</p>
                 </div>
             </div>
         </div>
@@ -59,7 +61,7 @@
         <a id="coverLinkSmall" href="#" target="_blank">
             <img id="coverImageSmall" src="/static/capa1.jpg" alt="Capa do Álbum" class="small-cover">
         </a>
-        <span id="songTittle" class="song-title">Complicidade</span>
+        <span id="songTittle" class="song-title">Se...</span>
     </div>
 </body>
 </html>

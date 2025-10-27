@@ -1,106 +1,152 @@
 document.addEventListener('DOMContentLoaded', function () {
-    let currentIndex = 0; // Índice atual da linha dentro da página
     let currentPage = 0; // Página atual
-    let lyricInterval; // Intervalo das letras
 
-    const pages = document.querySelectorAll(".lyrics-page"); // Todas as páginas de letras
+    const pages = document.querySelectorAll(".lyrics-page"); 
     const lyricsContainer = document.querySelector(".lyrics-container");
-    const coverImage = document.getElementById("coverImage"); // Imagem da capa
-    const coverImageSmall = document.getElementById("coverImageSmall"); // Imagem da capa
-    const infoTittle = document.getElementById("songTittle"); // Imagem da capa
+    const coverImage = document.getElementById("coverImage");
+    const coverImageSmall = document.getElementById("coverImageSmall");
+    const infoTittle = document.getElementById("songTittle");
     const coverLinkSmall = document.getElementById("coverLinkSmall");
+    const audioPlayer = document.getElementById("audioPlayer");
 
     const covers = [
-        "/static/foto1.jpeg",
-        "/static/foto2.jpeg",
-        "/static/foto3.jpeg",
-        "/static/foto4.jpeg"
+        "/static/day1.jpeg",
+        "/static/day2.jpeg",
+        "/static/day3.jpeg",
+        "/static/day4.jpeg"
     ];
 
     const covers_small = [
-        "/static/capa1.jpg",
         "/static/capa2.jpg",
-        "/static/capa3.jpeg",
-        "/static/capa4.jpeg"
+        "/static/capa1.jpg",
+        "/static/capa3.jpg",
+        "/static/capa2.jpg"
     ];
 
     const song_tittle = [
-        "Cumplicidade",
-        "Vida Vazia",
-        "Só Pra Você",
-        "Amor Imortal"
+        "Se...",
+        "Samurai",
+        "Eu te devoro",
+        "Linha do equador"
     ];
 
     const coverLinks = [
-        "https://open.spotify.com/intl-pt/track/4oIRYmC4rhBUbF2HSduX4C?si=d6682067d3c44e31",
-        "https://open.spotify.com/intl-pt/track/7kA3xa1iqOLTjPpWiX0sw7?si=3641289196b14efc",
-        "https://open.spotify.com/intl-pt/track/45FsR7a0Oh7CFqfrETEYtp?si=7b2e7a77a60049f6",
-        "https://open.spotify.com/intl-pt/track/193VzJnCr49pQnNJsSSlB8?si=b335deaaf15a4455"
+        "https://open.spotify.com/intl-pt/track/0PgsB53yhlKs8D19LgYU4i?si=ecc747538e814632",
+        "https://open.spotify.com/intl-pt/track/3BQAK2pnTpfZvLg2MUUU5i?si=64e1760e5cce41c0",
+        "https://open.spotify.com/intl-pt/track/2Px3PZ2qq2uFpRBpfVx8A5?si=59ae1f1245524704",
+        "https://open.spotify.com/intl-pt/track/51K301CKuavVEP7A9vsUaz?si=9f966f66248a47c3"
     ];
 
-    function updateLyrics() {
+    const songs = [
+        "/static/se.mp3",
+        "/static/samurai.mp3",
+        "/static/devoro.mp3",
+        "/static/equador.mp3"
+    ];
+
+    // tempos das linhas em segundos
+    const lyricsTimings = [
+        // Música 1 - "Se..."
+        [0, 6, 12, 16],
+        // Música 2 - "Samurai"
+        [0, 3, 7, 14],
+        // Música 3 - "Eu te devoro"
+        [0, 5, 11, 15],
+        // Música 4 - "Linha do equador"
+        [0, 4, 6, 10]
+    ];
+
+
+    // --- Atualiza as letras conforme o tempo do áudio ---
+    function updateLyricsByTime(currentTime) {
         const activePage = pages[currentPage];
-        const lines = activePage.querySelectorAll(".line"); // Apenas linhas da página ativa
+        const lines = activePage.querySelectorAll(".line");
+        const timings = lyricsTimings[currentPage];
 
-        // Remove 'active' de todas as linhas na página
-        lines.forEach(line => line.classList.remove("active"));
+        if (!timings || timings.length === 0) return;
 
-        // Marca a linha atual como ativa
-        if (lines[currentIndex]) {
-            lines[currentIndex].classList.add("active");
-
-            // Faz a rolagem dentro da página ativa
-            lyricsContainer.scrollTop = currentIndex * lines[0].offsetHeight;
+        // Se passou do último tempo, para ali (sem reiniciar)
+        if (currentTime > timings[timings.length - 1] + 0.5) {
+            lines.forEach(line => line.classList.remove("active"));
+            if (lines[lines.length - 1]) {
+                lines[lines.length - 1].classList.add("active");
+            }
+            return;
         }
 
-        // Avança para a próxima linha, reiniciando quando necessário
-        currentIndex = (currentIndex + 1) % lines.length;
+        // Determina qual linha deve estar ativa
+        let newIndex = 0;
+        for (let i = 0; i < timings.length; i++) {
+            if (currentTime >= timings[i]) {
+                newIndex = i;
+            }
+        }
+
+        // Atualiza visualmente
+        lines.forEach(line => line.classList.remove("active"));
+        if (lines[newIndex]) {
+            lines[newIndex].classList.add("active");
+            lyricsContainer.scrollTop = newIndex * lines[0].offsetHeight;
+        }
     }
 
-    function updatePage() {
+    // --- Atualiza página/música ---
+    function updatePage(autoPlay = true) {
         // Remove 'active' de todas as páginas
         pages.forEach(page => page.classList.remove("active"));
-
-        // Ativa apenas a página atual
         pages[currentPage].classList.add("active");
 
-        // Atualiza a imagem da capa
-        if (coverImage && covers[currentPage]) {
-            coverImage.src = covers[currentPage]; 
-        }
+        // Atualiza capa e título
+        if (coverImage && covers[currentPage]) coverImage.src = covers[currentPage];
+        if (coverImageSmall && covers_small[currentPage]) coverImageSmall.src = covers_small[currentPage];
+        if (infoTittle && song_tittle[currentPage]) infoTittle.textContent = song_tittle[currentPage];
+        if (coverLinkSmall && coverLinks[currentPage]) coverLinkSmall.href = coverLinks[currentPage];
 
-        if (coverImageSmall && covers_small[currentPage]) {
-            coverImageSmall.src = covers_small[currentPage]; 
-        }
-        
-        if (infoTittle && song_tittle[currentPage]) {
-            infoTittle.textContent = song_tittle[currentPage]; 
-        }
+        // Limpa linhas antigas
+        pages.forEach(page => {
+            const lines = page.querySelectorAll(".line");
+            lines.forEach(line => line.classList.remove("active"));
+        });
 
-        if (coverLinkSmall && coverLinks[currentPage]) {
-            coverLinkSmall.href = coverLinks[currentPage];
+        // Ativa a primeira linha da nova música
+        const firstLine = pages[currentPage].querySelector(".line");
+        if (firstLine) firstLine.classList.add("active");
+
+        // Atualiza o áudio
+        if (audioPlayer && songs[currentPage]) {
+            audioPlayer.src = songs[currentPage];
+
+            // Só tenta tocar se for permitido (autoplay pode ser bloqueado)
+            if (autoPlay) {
+                audioPlayer.play().catch(err => {
+                    console.log("Autoplay bloqueado, aguardando interação:", err);
+                });
+            }
+
+            // Atualiza letras conforme o tempo da música
+            audioPlayer.ontimeupdate = () => {
+                updateLyricsByTime(audioPlayer.currentTime);
+            };
+
+            // Quando a música terminar, passa automaticamente pra próxima
+            audioPlayer.onended = () => {
+                currentPage = (currentPage + 1) % pages.length;
+                updatePage(true); // toca automaticamente a próxima
+            };
         }
-
-        // Resetar índice das letras para começar do início
-        currentIndex = 0;
-
-        // Reiniciar o efeito das letras na nova página
-        clearInterval(lyricInterval); // Para o intervalo atual
-        lyricInterval = setInterval(updateLyrics, 1000); // Reinicia o efeito das letras
     }
 
-    // Inicia a primeira página corretamente
-    updatePage();
-
-    // Botão de próxima página
+    // --- Botões de navegação ---
     document.getElementById("next").addEventListener("click", function () {
-        currentPage = (currentPage + 1) % pages.length; // Muda a página
-        updatePage();
+        currentPage = (currentPage + 1) % pages.length;
+        updatePage(true);
     });
 
-    // Botão de página anterior
     document.getElementById("prev").addEventListener("click", function () {
         currentPage = (currentPage - 1 + pages.length) % pages.length;
-        updatePage();
+        updatePage(true);
     });
+
+    // --- Inicia automaticamente na primeira música ---
+    updatePage(true);
 });
