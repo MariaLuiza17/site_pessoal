@@ -1,22 +1,21 @@
 body {
-    background-color: #070040; /* Fundo escuro */
-    color: #ffffff; /* Texto branco */
+    background-color: #070040;
+    color: #ffffff;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     overflow: hidden;
-    background-image: url('frente.jpg'); /* Caminho para a imagem */
-    background-size: cover; /* Ajusta a imagem para cobrir todo o espaço */
-    background-position: center; /* Centraliza a imagem */
-    height: 100vh; /* Faz a altura da seção igual à altura da janela do navegador */
-    background-repeat: no-repeat; /* A imagem vai se repetir */
-    overflow: hidden; /* Impede a barra de rolagem */
-    background-attachment: fixed; /* Impede a rolagem */
+    background-image: url('frente.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
+/* Remove display none pra testar áudio se quiser */
 #audioPlayer {
     display: none;
 }
@@ -24,6 +23,7 @@ body {
 .music-player {
     text-align: center;
     position: relative;
+    padding: 10px;
 }
 
 .album-cover {
@@ -38,15 +38,18 @@ body {
     border-radius: 10px;
     object-fit: cover;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 90vw; /* nunca ultrapassa a largura da tela */
 }
 
 .lyrics-container {
     text-align: center;
     width: 100%;
     max-width: 600px;
-    height: 300px; /* Tamanho fixo para efeito de rolagem */
+    height: auto;
+    min-height: 200px;
     overflow: hidden;
     position: relative;
+    padding: 10px;
 }
 
 .lyrics-page {
@@ -85,9 +88,10 @@ body {
     top: 50%;
     width: 100%;
     display: flex;
-    justify-content: space-around;
-    padding: 50 50px; /* Adiciona um pouco de espaço nas laterais */
+    justify-content: space-between;
+    padding: 0 30px;
     transform: translateY(-50%);
+    pointer-events: none; /* evita clicar fora das setas */
 }
 
 .nav-btn {
@@ -98,6 +102,7 @@ body {
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
+    pointer-events: all;
 }
 
 .nav-btn:hover {
@@ -115,10 +120,11 @@ body {
     padding: 10px 15px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 90vw;
 }
 
 .small-cover {
-    width: 50px; /* Tamanho pequeno */
+    width: 50px;
     height: 50px;
     border-radius: 5px;
     object-fit: cover;
@@ -131,22 +137,79 @@ body {
     font-weight: bold;
 }
 
-/* Para telas menores que 768px (dispositivos móveis) */
-@media (max-width: 768px) {
-    .nav-buttons {
-        position: fixed;
-        bottom: 10px; /* Coloca as setas 10px acima da parte inferior */
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: min-content;
-        margin-top: 70%;
+/* 📱 Responsividade vertical (celular em pé) */
+@media (max-width: 768px) and (orientation: portrait) {
+    .cover-image {
+        width: 200px;
+        height: 200px;
     }
 
-    /* Ajusta as setas para estarem lado a lado */
-    .nav-buttons button {
+    .line {
+        font-size: 16px;
+    }
+
+    .nav-buttons {
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        justify-content: center;
+        padding: 0;
+    }
+
+    .nav-btn {
+        font-size: 26px;
+        margin: 0 20px;
+    }
+
+    .song-info {
+        bottom: 70px;
+    }
+}
+
+/* 🌄 Responsividade horizontal (celular deitado, ex: iPhone 11 paisagem) */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .cover-image {
+        width: 180px;
+        height: 180px;
+    }
+
+    .lyrics-container {
+        max-width: 80vw;
+        height: auto;
+    }
+
+    .line {
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    .song-info {
+        position: absolute;
+        bottom: 10px;
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .small-cover {
+        width: 40px;
+        height: 40px;
+    }
+
+    .nav-buttons {
+        bottom: 5px;
+        top: auto;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .nav-btn {
+        font-size: 24px;
         margin: 0 10px;
     }
 }
